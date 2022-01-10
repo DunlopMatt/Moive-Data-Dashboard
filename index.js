@@ -13,8 +13,8 @@ function logKey(e) {
 }
 
 let foundMovies;
-
 async function searchMoive(movie){
+if (!foundMovies) {
   await axios.get('http://www.omdbapi.com/', {
   params: {
     apikey: '728b38e6', 
@@ -27,9 +27,9 @@ async function searchMoive(movie){
 .catch(function (error) {
   console.log(error);
 })
-
-setInterval(createDrop(), 10000);
+  setInterval(createDrop(), 10000);
 return foundMovies;
+}
 }
 
 let finalMovie = ""
@@ -56,12 +56,18 @@ let imdbID = ""
 function createDrop(){
   // await searchMoive;
   for(movie of foundMovies){
-    dropDown.appendChild(document.createElement('li')).innerHTML = `<a style data-id="${movie.imdbID}" href="index.html"> ${movie.Title} -  ${movie.Year} <img src="${movie.Poster}"> </a>  `
+    dropDown.appendChild(document.createElement('li')).innerHTML =
+     `
+    <a data-id="${movie.imdbID}" href="index.html">
+    <img src="${movie.Poster}">
+    <h3> ${movie.Title} -  ${movie.Year} </h3>
+    </a>
+    `
   }
   dropLi = document.querySelectorAll('li').forEach(li => 
     li.addEventListener('click', function(e){
       e.preventDefault()
-      aTag = li.firstChild
+      aTag = li.firstElementChild
       imdbID = aTag.getAttribute('data-id')
       selectMoive(imdbID);
     })
@@ -70,22 +76,30 @@ function createDrop(){
 
 function hideDrop(){
   document.querySelector('#dropDown').classList.add('hide')
-
+  input.value = ""
 }
 
 
 function showData(movie){
   movieData = document.querySelector('#movieData');
-  movieData.appendChild(document.createElement('ul')).innerHTML =`
-  <li> ${movie.Title} </li>
-  <li> Year - ${movie.Year}</li>
-  <li> Awards - ${movie.Awards}</li>
-  <li> Director - ${movie.Director}</li>
-  <li> Rated - ${movie.Rated}</li>
-  <li> Rating - ${movie.imdbRating}</li>
-  <li> Votes -${movie.imdbVotes}</li>
-  <li> ${movie.BoxOffice}</li>
-  <li>   <img src="${movie.Poster}"> 
-  </li>
+  movieData.appendChild(document.createElement('div')).innerHTML =`
+  <h1>${movie.Title}</h1>
+        <div>
+          <img src="${movie.Poster}">
+        </div>
+        <div>
+          <li>Year - ${movie.Year}</li>
+          <li> Awards - ${movie.Awards}</li>
+          <li> Director - ${movie.Director}</li>
+          <li> Rated - ${movie.Rated}</li>
+          <li> Rating - ${movie.imdbRating}</li>
+          <li> Votes -${movie.imdbVotes}</li>
+           <li> Box Office - ${movie.BoxOffice}</li>
+           <form action="/"> 
+            <button type="submit">Go Back</button>
+          </form>
+        </div>
+        
+  
   `
 }
