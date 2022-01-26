@@ -6,7 +6,6 @@ document.addEventListener('keypress', logKey);
 
 function logKey(e) {
   if (e.code === "Enter"){
-    // console.log(input.value)
     let movieName = input.value;
     searchMoive(movieName);
   };
@@ -27,7 +26,7 @@ if (!foundMovies) {
 .catch(function (error) {
   console.log(error);
 })
-  setInterval(createDrop(), 10000);
+  await createDrop();
 return foundMovies;
 }
 }
@@ -47,13 +46,13 @@ async function selectMoive(movie){
   console.log(error);
 })
 hideDrop();
-setInterval(showData(finalMovie), 10000)
+await showData(finalMovie)
 return finalMovie;
 }
 
 
 let imdbID = ""
-function createDrop(){
+async function createDrop(){
   // await searchMoive;
   for(movie of foundMovies){
     dropDown.appendChild(document.createElement('li')).innerHTML =
@@ -80,7 +79,7 @@ function hideDrop(){
 }
 
 
-function showData(movie){
+async function showData(movie){
   movieData = document.querySelector('#movieData');
   movieData.appendChild(document.createElement('div')).innerHTML =`
   <h1>${movie.Title}</h1>
