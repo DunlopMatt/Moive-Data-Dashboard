@@ -94,7 +94,7 @@ async function showData(movie){
           <li> Rating - ${movie.imdbRating}</li>
           <li> Votes -${movie.imdbVotes}</li>
            <li> Box Office - ${movie.BoxOffice}</li>
-           <form action="/"> 
+           <form action="https://dunlopmatt.github.io/Moive-Data-Dashboard/"> 
             <button type="submit">Go Back</button>
           </form>
         </div>
