@@ -14,7 +14,7 @@ function logKey(e) {
 let foundMovies;
 async function searchMoive(movie){
 if (!foundMovies) {
-  await axios.get('http://www.omdbapi.com/', {
+  await axios.get('https://www.omdbapi.com/', {
   params: {
     apikey: '728b38e6', 
     s: movie
@@ -33,7 +33,7 @@ return foundMovies;
 
 let finalMovie = ""
 async function selectMoive(movie){
-  await axios.get('http://www.omdbapi.com/', {
+  await axios.get('https://www.omdbapi.com/', {
   params: {
     apikey: '728b38e6', 
     i: movie
